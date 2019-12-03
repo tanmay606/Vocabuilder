@@ -18,16 +18,16 @@ Features :
 
 Some Images :
 ****************
-[Image1](https://github.com/tanmay606/Vocabuilder/blob/master/Images/1.png)
-[Image2](https://github.com/tanmay606/Vocabuilder/blob/master/Images/2.pngg)
-[Image3](https://github.com/tanmay606/Vocabuilder/blob/master/Images/3.png)
-[Image4](https://github.com/tanmay606/Vocabuilder/blob/master/Images/4.png)
-[Image5](https://github.com/tanmay606/Vocabuilder/blob/master/Images/5.png)
-[Image6](https://github.com/tanmay606/Vocabuilder/blob/master/Images/6.png)
-[Image7](https://github.com/tanmay606/Vocabuilder/blob/master/Images/7.png)
-[Image8](https://github.com/tanmay606/Vocabuilder/blob/master/Images/8.png)
-[Image9](https://github.com/tanmay606/Vocabuilder/blob/master/Images/9.png)
-[Image10](https://github.com/tanmay606/Vocabuilder/blob/master/Images/10.png)
+![Image1](https://github.com/tanmay606/Vocabuilder/blob/master/Images/1.png)
+![Image2](https://github.com/tanmay606/Vocabuilder/blob/master/Images/2.pngg)
+![Image3](https://github.com/tanmay606/Vocabuilder/blob/master/Images/3.png)
+![Image4](https://github.com/tanmay606/Vocabuilder/blob/master/Images/4.png)
+![Image5](https://github.com/tanmay606/Vocabuilder/blob/master/Images/5.png)
+![Image6](https://github.com/tanmay606/Vocabuilder/blob/master/Images/6.png)
+![Image7](https://github.com/tanmay606/Vocabuilder/blob/master/Images/7.png)
+![Image8](https://github.com/tanmay606/Vocabuilder/blob/master/Images/8.png)
+![Image9](https://github.com/tanmay606/Vocabuilder/blob/master/Images/9.png)
+![Image10](https://github.com/tanmay606/Vocabuilder/blob/master/Images/10.png)
 
 
 Will Be Added In Next Version :

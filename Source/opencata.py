@@ -36,7 +36,11 @@ class OpenCata_(object):
                 print("%s added to catagory"%eachcatagory)
                 self.eachcatagory = eachcatagory.replace("\n","")
                 self.eachcatagory = self.eachcatagory.split(":")[0]
-                self.CCT.append(self.eachcatagory)
+                delfilesig = self.eachcatagory + ".db.del"
+                if path.isfile(delfilesig):
+                    pass
+                else:
+                    self.CCT.append(self.eachcatagory)
         except FileNotFoundError:
             #!no catagory file found.
             self.CCT = []

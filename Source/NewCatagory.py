@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from SqlCmd import DatabaseManagement
-from os import chdir, mkdir, path, getcwd
+from os import chdir, mkdir, path, getcwd, remove
 class Ui_CreateNewCatagory():
     def __init__(self):
         if path.isdir("DATA"):
@@ -93,6 +93,16 @@ class Ui_CreateNewCatagory():
             self.error_msgBox.show()
         else:
             self.DBName = self.CatagoryName + ".db"
+            self.checkdelstatus = self.DBName + ".del"
+            if path.isfile(self.checkdelstatus):
+                try:
+                    print("removed db")
+                    remove(self.DBName)
+                except:
+                    print("unable to delete old files")
+                    remove(self.checkdelstatus)
+
+
             self.DbObj = DatabaseManagement(self.DBName)
             self.DbObj.CreateTable()
             self.DbObj.CloseConnections()

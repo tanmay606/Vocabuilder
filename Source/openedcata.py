@@ -14,43 +14,43 @@ class Ui_SpecificCatagory_Manager(threading.Thread):
         self.catagory_desc = ""
         self.catagory_name = self.database_name.split(".db")[0]
         try:
-        	print("in try ")
-        	with open("catadetails","r") as fp:
-        		self.catadetail = fp.readlines()
-        	for eachline in self.catadetail:
-        		print("in for loop")
-        		eachline = eachline.replace('\n','')
-        		print("checking %s in %s"%(self.catagory_name,eachline))
-        		if self.catagory_name in eachline:
-        			self.catagory_desc = eachline.split(":")[1]
-        		else:
-        			pass
+            print("in try ")
+            with open("catadetails","r") as fp:
+                self.catadetail = fp.readlines()
+            for eachline in self.catadetail:
+                print("in for loop")
+                eachline = eachline.replace('\n','')
+                print("checking %s in %s"%(self.catagory_name,eachline))
+                if self.catagory_name in eachline:
+                    self.catagory_desc = eachline.split(":")[1]
+                else:
+                    pass
         except:
-        	pass
+            pass
         threading.Thread.__init__(self)
         print("dbname : ",self.database_name)
         refreshthread = threading.Thread(target = self.RefreshContents, daemon=True)
         refreshthread.start()
     def RefreshContents(self):
-    	self.DbObj = DatabaseManagement(self.database_name)
-    	self.DbObj.CreateTable()
-    	while True:
-    		if Ui_SpecificCatagory_Manager.DatabaseDeleted:
-    			self.DbObj.DeleteDatabase()
-    			Ui_SpecificCatagory_Manager.DatabaseDeleted = False
-    		else:
-    			sleep(0.5)
-    			self.DatabaseDetails = self.DbObj.FetchData()
-    			self.opened_cata_tableWidget.clearContents()
-    			if len(self.DatabaseDetails) != 0:
-    				for rowno,rowdata in enumerate(self.DatabaseDetails):
-    					for colno, coldata in enumerate(rowdata):
-    						self.opened_cata_tableWidget.setItem(rowno, colno, QtWidgets.QTableWidgetItem(str(coldata)))
+        self.DbObj = DatabaseManagement(self.database_name)
+        self.DbObj.CreateTable()
+        while True:
+            if Ui_SpecificCatagory_Manager.DatabaseDeleted:
+                self.DbObj.DeleteDatabase()
+                Ui_SpecificCatagory_Manager.DatabaseDeleted = False
+            else:
+                sleep(0.5)
+                self.DatabaseDetails = self.DbObj.FetchData()
+                self.opened_cata_tableWidget.clearContents()
+                if len(self.DatabaseDetails) != 0:
+                    for rowno,rowdata in enumerate(self.DatabaseDetails):
+                        for colno, coldata in enumerate(rowdata):
+                            self.opened_cata_tableWidget.setItem(rowno, colno, QtWidgets.QTableWidgetItem(str(coldata)))
     def AddWordWizard(self):
-    	self.AddWord_ = QtWidgets.QDialog()
-    	self.AddWordUI = Ui_AddWord_(self.database_name)
-    	self.AddWordUI.setupUi(self.AddWord_)
-    	self.AddWord_.show()
+        self.AddWord_ = QtWidgets.QDialog()
+        self.AddWordUI = Ui_AddWord_(self.database_name)
+        self.AddWordUI.setupUi(self.AddWord_)
+        self.AddWord_.show()
     def setupUi(self, SpecificCatagory_Manager):
         self.SpecificCatagory_Manager = SpecificCatagory_Manager
         self.SpecificCatagory_Manager.setObjectName("SpecificCatagory_Manager")
@@ -97,6 +97,7 @@ class Ui_SpecificCatagory_Manager(threading.Thread):
         self.opened_cata_deletecatagory.setObjectName("opened_cata_deletecatagory")
         self.verticalLayout.addWidget(self.opened_cata_deletecatagory)
         self.opened_cata_tableWidget = QtWidgets.QTableWidget(self.centralwidget)
+        self.opened_cata_tableWidget.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.opened_cata_tableWidget.setGeometry(QtCore.QRect(100, 170, 761, 471))
         self.opened_cata_tableWidget.setRowCount(1000)
         self.opened_cata_tableWidget.setColumnCount(4)
@@ -109,6 +110,7 @@ class Ui_SpecificCatagory_Manager(threading.Thread):
         self.opened_cata_tableWidget.verticalHeader().setDefaultSectionSize(40)
         self.opened_cata_tableWidget.verticalHeader().setMinimumSectionSize(40)
         self.SpecificCatagory_Manager.setCentralWidget(self.centralwidget)
+        self.opened_cata_tableWidget.setHorizontalHeaderLabels(["Id", "Word", "Synonym", "Meaning"])
         self.statusbar = QtWidgets.QStatusBar(self.SpecificCatagory_Manager)
         self.statusbar.setObjectName("statusbar")
         self.SpecificCatagory_Manager.setStatusBar(self.statusbar)
@@ -116,19 +118,23 @@ class Ui_SpecificCatagory_Manager(threading.Thread):
         self.retranslateUi(self.SpecificCatagory_Manager)
         QtCore.QMetaObject.connectSlotsByName(self.SpecificCatagory_Manager)
     def RemoveParticularWord(self):
-    	self.DeleteWord = QtWidgets.QDialog()
-    	self.DeleteUI = Ui_DeleteWord(self.database_name)
-    	self.DeleteUI.setupUi(self.DeleteWord)
-    	self.DeleteWord.show()
+        self.DeleteWord = QtWidgets.QDialog()
+        self.DeleteUI = Ui_DeleteWord(self.database_name)
+        self.DeleteUI.setupUi(self.DeleteWord)
+        self.DeleteWord.show()
     def RemoveCatagory(self):
-    	Ui_SpecificCatagory_Manager.DatabaseDeleted = True
-    	self.SpecificCatagory_Manager.close()
+        Ui_SpecificCatagory_Manager.DatabaseDeleted = True
+        self.SpecificCatagory_Manager.close()
+        self.del_dbSignal = self.database_name + ".del"
+        with open(self.del_dbSignal,'w') as qp:
+            qp.write("DeleteCatagory:OK")
+        
     def ShowDetails(self):
-    	self.Details = QtWidgets.QDialog()
-    	self.DetailsUI = Ui_Details(self.catagory_name,self.catagory_desc)
-    	self.DetailsUI.setupUi(self.Details)
-    	self.Details.show()
-    	
+        self.Details = QtWidgets.QDialog()
+        self.DetailsUI = Ui_Details(self.catagory_name,self.catagory_desc)
+        self.DetailsUI.setupUi(self.Details)
+        self.Details.show()
+
     def retranslateUi(self, SpecificCatagory_Manager):
         _translate = QtCore.QCoreApplication.translate
         SpecificCatagory_Manager.setWindowTitle(_translate("SpecificCatagory_Manager", "Vocabuilder"))
